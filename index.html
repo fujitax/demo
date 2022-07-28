@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>HTML5 Camera フレーム付き</title>
+  <title></title>
   <link rel="stylesheet" href="style.css" type="text/css" media="all">
   <style>
     canvas{ border:1px solid gray; }
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h1>フレーム付きカメラ</h1>
+<h1></h1>
 
 <section id="contents">
   <!-- カメラ映像 -->
@@ -27,12 +27,6 @@
     <button id="btn-shutter" type="button"><img src="icon/camera-solid.svg" width="32" height="32"></button>
   </div>
 
-  <!-- フレーム切り替え -->
-  <div id="frame-inner">
-    <h2>フレーム切り替え</h2>
-    <ul id="framelist">
-    </ul>
-  </div>
 </section>
 
 <!-- 合成用Canvas(不可視) -->
@@ -73,8 +67,6 @@ const SE    = document.querySelector('#se');
 /** フレーム素材一覧 */
 const FRAMES = [
     {large:"image/frame1.png", small:"image/frame1_s.png"}
-  , {large:"image/frame2.png", small:"image/frame2_s.png"}
-  , {large:"image/frame3.png", small:"image/frame3_s.png"}
 ];
 
 /** カメラ設定 */
@@ -101,7 +93,6 @@ window.onload = () => {
   // フレーム初期化
   //-----------------------------
   drawFrame(FRAMES[0].large);   // 初期フレームを表示
-  setFrameList();               // 切り替え用のフレーム一覧を表示
 
   //-----------------------------
   // シャッターボタン
@@ -150,50 +141,6 @@ function syncCamera(){
   .catch( (err) => {
     console.log(`${err.name}: ${err.message}`);
   });
-}
-
-/**
- * [onload] フレーム一覧を表示する
- *
- * @return {void}
- **/
- function setFrameList(){
-  const list = document.querySelector("#framelist");
-  let i=0;
-  FRAMES.forEach(item => {
-    const li = document.createElement("li");
-    li.innerHTML = `<img src="${item.small}">`; // <li><img ...></li>
-    li.classList.add("framelist");              // <li class="framelist" ...
-    li.setAttribute("data-index", i++);         // <li data-index="1" ...
-
-    // クリックされるとフレーム変更
-    li.addEventListener("click", (e)=>{
-      const idx = e.target.parentElement.getAttribute("data-index");    // 親(parent)がli
-      drawFrame(FRAMES[idx].large);
-    })
-
-    // ulに追加
-    list.appendChild(li);
-  });
-}
-
-/**
- * 指定フレームを描画する
- *
- * @param {string} path  フレームの画像URL
- * @return {void}
- */
-function drawFrame(path){
-  const modal = "#dialog-nowloading";
-  const image = new Image();
-  image.src = path;
-  image.onload = () => {
-    const ctx = FRAME.getContext("2d");
-    ctx.clearRect(0, 0, frame.width, frame.height);
-    ctx.drawImage(image, 0, 0, frame.width, frame.height);
-    dialogHide(modal);
-  };
-  dialogShow(modal);
 }
 
 /**
