@@ -30,10 +30,10 @@
         <video id="player" controls autoplay playsinline></video>
         <canvas id="canvas" width="640" height="480"></canvas>
         <div class="button">
-            <button id="capture">撮影する</button>
+            <button id="capture">撮影</button>
         </div>
         <div id="msg" align="center"></div>
-        <canvas id="snapshot" width="1024" height="768"></canvas>
+        <canvas id="snapshot" width="640" height="480"></canvas>
         <br>
         <script>
             var video = document.getElementById("player"),
@@ -48,13 +48,6 @@
                     0, 0, 640, 480);
                 imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 data = imgData.data;
-                for (let i = 0; i < data.length; i += 4) {
-                    ave = (data[i + 0] + data[i + 1] + data[i + 2]) / 3;
-                    data[i + 0] =
-                        data[i + 1] =
-                        data[i + 2] = (ave > 128) ? 255 : 0;
-                    data[i + 3] = 255;
-                }
                 ctx.putImageData(imgData, 0, 0);
                 requestAnimationFrame(draw);
             }
