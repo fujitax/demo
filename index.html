@@ -28,7 +28,7 @@
 <body>
     <div align="center">
         <video id="player" controls autoplay playsinline></video>
-        <canvas id="canvas" width="300" height="100"></canvas>
+        <canvas id="canvas" width="1024" height="768"></canvas>
         <div class="button">
             <button id="capture">撮影する</button>
         </div>
@@ -45,8 +45,8 @@
             requestAnimationFrame(draw);
     
             function draw() {
-                canvas.width = 300;
-                canvas.height = 100;
+                canvas.width = 1024
+                canvas.height = 768;
                 ctx.drawImage(video, 100, 300, 600, 200,
                     0, 0, 300, 100);
                 imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
