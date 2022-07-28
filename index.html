@@ -28,7 +28,7 @@
 <body>
     <div align="center">
         <video id="player" controls autoplay playsinline></video>
-        <canvas id="canvas" width="640" height="480"></canvas>
+        <canvas id="canvas" width="320" height="240"></canvas>
         <div class="button">
             <button id="capture">撮影</button>
         </div>
@@ -42,10 +42,10 @@
             requestAnimationFrame(draw);
     
             function draw() {
-                canvas.width = 640
-                canvas.height = 480;
-                ctx.drawImage(video, 100, 300, 640, 480,
-                    0, 0, 640, 480);
+                canvas.width = 320
+                canvas.height = 240;
+                ctx.drawImage(video, 100, 300, 320, 240,
+                    0, 0, 320, 240);
                 imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 data = imgData.data;
                 ctx.putImageData(imgData, 0, 0);
@@ -62,7 +62,7 @@
     
             captureButton.addEventListener('click', function() {
                 var context = snapshot.getContext('2d');
-                context.drawImage(video, 100, 300, 640, 480, 0, 0, snapshotCanvas.width,
+                context.drawImage(video, 100, 300, 320, 240, 0, 0, snapshotCanvas.width,
                     snapshotCanvas.height);
                 const url = snapshot.toDataURL("image/png");
                 Tesseract
