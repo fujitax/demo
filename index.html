@@ -1,0 +1,167 @@
+<html>
+<head>
+    <!-- ③ viewportを追加してスマホでも見やすくする -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <!-- ① CDNでCSSを読み込み -->
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <div ref="canvas-container" style="width:100%;margin:0 auto;">
+            <canvas ref="canvas"></canvas>
+        </div>
+        <div class="text-center pt-3">
+            <!-- ② Status によって表示ブロックを切り替える -->
+            <!-- play： カメラの映像をキャンバスにリアルタイムで表示 -->
+            <div v-if="status=='play'">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded" @click="takeSnapshot">
+                    スナップショットを取る
+                </button>
+            </div>
+            <!-- pause： スナップショットを撮ったので一次停止 -->
+            <div v-if="status=='pause'">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-8 py-3 mr-1 rounded" @click="runOcr">
+                    ISBNを読み取る
+                </button>
+                <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 ml-1 border border-blue-500 hover:border-transparent rounded" @click="playVideo">
+                    戻る
+                </button>
+            </div>
+            <!-- pause： スナップショットをOCRにかけてテキストを取得 -->
+            <div v-if="status=='reading'">
+                読み取り中です...
+            </div>
+        </div>
+    </div>
+    <!-- ① CDNでJavaScriptを読み込み -->
+    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"></script>
+    <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+    <script>
+
+        Vue.createApp({
+            data() {
+                return {
+                    video: null,
+                    canvas: null,
+                    context: null,
+                    dataUrl: '',
+                    status: 'none'
+                }
+            },
+            methods: {
+                // ① カメラとキャンバスの準備
+                initialize() {
+
+                    this.status = 'initialize';
+
+                    navigator.mediaDevices.getUserMedia({
+                        video: {
+                            facingMode: {
+                                ideal: 'environment'
+                            }
+                        }
+                    })
+                    .then(stream => {
+
+                        this.canvas = this.$refs.canvas;
+                        this.context = this.canvas.getContext('2d');
+
+                        this.video = document.createElement('video');
+                        this.video.addEventListener('loadedmetadata', () => { // メタデータが取得できるようになったら実行
+
+                            const canvasContainer = this.$refs['canvas-container'];
+                            this.canvas.width = canvasContainer.offsetWidth;
+                            this.canvas.height = parseInt(this.canvas.width * this.video.videoHeight / this.video.videoWidth);
+                            this.render();
+
+                        });
+                        // iOSのために以下３つの設定が必要
+                        this.video.setAttribute('autoplay', '');
+                        this.video.setAttribute('muted', '');
+                        this.video.setAttribute('playsinline', '');
+                        this.video.srcObject = stream;
+                        this.playVideo();
+
+                    })
+                    .catch(error => console.log(error));
+
+                },
+                render() {
+
+                    if(this.video.readyState === this.video.HAVE_ENOUGH_DATA) {
+
+                        this.context.drawImage(this.video, 0, 0, this.canvas.width, this.canvas.height);
+
+                    }
+
+                    requestAnimationFrame(this.render);
+
+                },
+                runOcr() { // ③ スナップショットからテキストを抽出
+
+                    this.status = 'reading';
+
+                    Tesseract.recognize(this.dataUrl, 'eng', {
+                        logger: log => {
+
+                            console.log(log);
+
+                        }
+                    })
+                    .then(result => {
+
+                        alert(result.data.text);
+
+                    })
+                    .catch(error => console.log(error))
+                    .finally(() => {
+
+                        this.playVideo();
+
+                    });
+
+                },
+                playVideo() {
+
+                    this.video.play();
+                    this.status = 'play';
+
+                },
+                pauseVideo() {
+
+                    this.video.pause();
+                    this.status = 'pause';
+
+                },
+                takeSnapshot() { // ② スナップショットを取る（カメラは一時停止）
+
+                    // this.makeSound(); // 音を鳴らす
+                    this.pauseVideo();
+                    this.dataUrl = this.canvas.toDataURL();
+
+                },
+                makeSound() { // ④ おまけ：スナップショットをとるときに音をならす
+
+                    document.querySelectorAll('.notification-iframe').forEach(el => el.remove()); // 全ての通知用 iFrame を削除
+
+                    // soundタグは使わず iFrame で直接音声ファイルへアクセスする
+                    const iFrame = document.createElement('iframe');
+                    iFrame.setAttribute('src', '/audios/insight.ogg');
+                    iFrame.setAttribute('allow', 'autoplay');
+                    iFrame.style.display = 'none';
+                    iFrame.className = 'notification-iframe';
+                    document.body.appendChild(iFrame);
+
+                }
+            },
+            mounted() {
+
+                this.initialize();
+
+            }
+        }).mount('#app');
+
+    </script>
+</body>
+</html>
+
