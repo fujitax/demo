@@ -74,7 +74,7 @@ const SE    = document.querySelector('#se');
 const FRAMES = [
     {large:"image/frame1.png", small:"image/frame1_s.png"}
   , {large:"image/frame2.png", small:"image/frame2_s.png"}
-  , {large:"image/frame3.png", small:"image/frame3_s.png"}
+  , {large:"image/licsene-frame.png", small:"image/licsene-frame.png"}
 ];
 
 /** カメラ設定 */
@@ -83,8 +83,8 @@ const CONSTRAINTS = {
   video: {
     width: 640,
     height: 480,
-    facingMode: "user"   // フロントカメラを利用する
-    // facingMode: { exact: "environment" }  // リアカメラを利用する場合
+    // facingMode: "user"   // フロントカメラを利用する
+    facingMode: { exact: "environment" }  // リアカメラを利用する場合
   }
 };
 
