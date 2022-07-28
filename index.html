@@ -16,10 +16,10 @@
                     lang: 'jpn'
                 })
                 .progress(function(p) {
-                    $("#msg").text('準備中🐹 <' + p.status + ": " + (100 * p.progress).toFixed(1) + '%>')
+                    $("#msg").text('準備中 <' + p.status + ": " + (100 * p.progress).toFixed(1) + '%>')
                 })
                 .then(function(result) {
-                    $("#msg").text('準備完了🐸')
+                    $("#msg").text('準備完了')
                 });
         }());
     </script>
@@ -30,13 +30,13 @@
         <video id="player" controls autoplay playsinline></video>
         <canvas id="canvas" width="300" height="100"></canvas>
         <div class="button">
-            <button id="capture">日本語を撮影する</button>
+            <button id="capture">撮影する</button>
         </div>
         <div class="button">
             <button id="captureeng">Capture English</button>
         </div>
         <div id="msg" align="center"></div>
-        <canvas id="snapshot" width="300" height="100"></canvas>
+        <canvas id="snapshot" width="1024" height="768"></canvas>
         <br>
         <script>
             var video = document.getElementById("player"),
