@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>HTML5 Camera フレーム付き</title>
+//  <title>HTML5 Camera フレーム付き</title>
   <link rel="stylesheet" href="style.css" type="text/css" media="all">
   <style>
     canvas{ border:1px solid gray; }
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<h1>フレーム付きカメラ</h1>
+// <h1>フレーム付きカメラ</h1>
 
 <section id="contents">
   <!-- カメラ映像 -->
@@ -73,8 +73,8 @@ const SE    = document.querySelector('#se');
 /** フレーム素材一覧 */
 const FRAMES = [
     {large:"image/frame1.png", small:"image/frame1_s.png"}
-  , {large:"image/frame2.png", small:"image/frame2_s.png"}
-  , {large:"image/frame3.png", small:"image/frame3_s.png"}
+//   , {large:"image/frame2.png", small:"image/frame2_s.png"}
+//   , {large:"image/frame3.png", small:"image/frame3_s.png"}
 ];
 
 /** カメラ設定 */
@@ -83,8 +83,8 @@ const CONSTRAINTS = {
   video: {
     width: 640,
     height: 480,
-    facingMode: "user"   // フロントカメラを利用する
-    // facingMode: { exact: "environment" }  // リアカメラを利用する場合
+    // facingMode: "user"   // フロントカメラを利用する
+    facingMode: { exact: "environment" }  // リアカメラを利用する場合
   }
 };
 
@@ -101,7 +101,7 @@ window.onload = () => {
   // フレーム初期化
   //-----------------------------
   drawFrame(FRAMES[0].large);   // 初期フレームを表示
-  setFrameList();               // 切り替え用のフレーム一覧を表示
+  // setFrameList();               // 切り替え用のフレーム一覧を表示
 
   //-----------------------------
   // シャッターボタン
