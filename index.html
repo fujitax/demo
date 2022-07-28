@@ -2,8 +2,7 @@
 <head>
     <!-- ③ viewportを追加してスマホでも見やすくする -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <!-- ① CDNでCSSを読み込み -->
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="tailwind.min.css" type="text/css" media="all">
 </head>
 <body>
     <div id="app">
@@ -15,13 +14,13 @@
             <!-- play： カメラの映像をキャンバスにリアルタイムで表示 -->
             <div v-if="status=='play'">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-8 py-3 rounded" @click="takeSnapshot">
-                    スナップショットを取る
+                    撮影
                 </button>
             </div>
             <!-- pause： スナップショットを撮ったので一次停止 -->
             <div v-if="status=='pause'">
                 <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-8 py-3 mr-1 rounded" @click="runOcr">
-                    ISBNを読み取る
+                    免許証を読み取る
                 </button>
                 <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 ml-1 border border-blue-500 hover:border-transparent rounded" @click="playVideo">
                     戻る
@@ -33,9 +32,8 @@
             </div>
         </div>
     </div>
-    <!-- ① CDNでJavaScriptを読み込み -->
-    <script src="https://unpkg.com/vue@3.0.0/dist/vue.global.prod.js"></script>
-    <script src='https://unpkg.com/tesseract.js@v2.1.0/dist/tesseract.min.js'></script>
+    <script src="vue.global.prod.js" type="text/javascript"></script>
+　　<script src="tesseract.min.js" type="text/javascript"></script>
     <script>
 
         Vue.createApp({
