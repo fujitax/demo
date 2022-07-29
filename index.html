@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta charset="UTF-8">
   <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
   <link rel="stylesheet" href="style.css" type="text/css" media="all">
   <style>
     canvas{ border:1px solid gray; }
@@ -19,10 +19,10 @@
 
 <section id="contents">
   <!-- カメラ映像 -->
-  <video id="camera" width="640" height="360" autoplay muted playsinline></video>
+  <video id="camera" width="896" height="504" autoplay muted playsinline></video>
 
   <!-- フレーム -->
-  <canvas id="frame" width="640" height="360"></canvas>
+  <canvas id="frame" width="896" height="504"></canvas>
 
   <!-- シャッター -->
   <div id="shutter-inner">
@@ -32,14 +32,14 @@
 </section>
 
 <!-- 合成用Canvas(不可視) -->
-<canvas id="still" width="640" height="360"></canvas>
+<canvas id="still" width="896" height="504"></canvas>
 
 <!-- ダイアログ -->
 <div id="dialog-outer">
   <!-- 最終結果 -->
   <div id="dialog-result" class="dialog">
       <img id="dialog-result-close" src="icon/times-circle-regular.svg" width="48" height="48">
-      <p><canvas id="result" width="640" height="360"></canvas></p>
+      <p><canvas id="result" width="896" height="504"></canvas></p>
       <button id="dialog-result-dl" type="button">
         <img src="icon/download-solid.svg" width="48" height="48">
       </button>
@@ -75,8 +75,8 @@ const FRAMES = [
 const CONSTRAINTS = {
   audio: false,
   video: {
-    width: 360,
-    height: 640,
+    //width: 360,
+    //height: 640,
     //facingMode: "user"   // フロントカメラを利用する
     //facingMode: { exact: "environment" }  // リアカメラのみに限定利用する場合
     facingMode: "environment" 
