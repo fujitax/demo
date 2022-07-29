@@ -27,12 +27,6 @@
     <button id="btn-shutter" type="button"><img src="icon/camera-solid.svg" width="32" height="32"></button>
   </div>
 
-  <!-- フレーム切り替え -->
-  <div id="frame-inner">
-    <h2>フレーム切り替え</h2>
-    <ul id="framelist">
-    </ul>
-  </div>
 </section>
 
 <!-- 合成用Canvas(不可視) -->
@@ -147,31 +141,6 @@ function syncCamera(){
   })
   .catch( (err) => {
     console.log(`${err.name}: ${err.message}`);
-  });
-}
-
-/**
- * [onload] フレーム一覧を表示する
- *
- * @return {void}
- **/
- function setFrameList(){
-  const list = document.querySelector("#framelist");
-  let i=0;
-  FRAMES.forEach(item => {
-    const li = document.createElement("li");
-    li.innerHTML = `<img src="${item.small}">`; // <li><img ...></li>
-    li.classList.add("framelist");              // <li class="framelist" ...
-    li.setAttribute("data-index", i++);         // <li data-index="1" ...
-
-    // クリックされるとフレーム変更
-    li.addEventListener("click", (e)=>{
-      const idx = e.target.parentElement.getAttribute("data-index");    // 親(parent)がli
-      drawFrame(FRAMES[idx].large);
-    })
-
-    // ulに追加
-    list.appendChild(li);
   });
 }
 
