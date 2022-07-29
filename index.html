@@ -106,7 +106,8 @@ window.onload = () => {
 
     // 画像の生成
     onShutter();                                    // カメラ映像から静止画を取得
-    concatCanvas("#result", ["#still", "#frame"]);  // フレームと合成
+    //concatCanvas("#result", ["#still", "#frame"]);  // フレームと合成
+    concatCanvas("#result", ["#still", "#still"]);  // フレームと合成
 
     // 最終結果ダイアログを表示
     setTimeout( () => {                // 演出目的で少しタイミングをずらす
