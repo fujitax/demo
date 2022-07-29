@@ -19,10 +19,10 @@
 
 <section id="contents">
   <!-- カメラ映像 -->
-  <video id="camera" width="504" height="896" autoplay muted playsinline></video>
+  <video id="camera" width="432" height="768" autoplay muted playsinline></video>
 
   <!-- フレーム -->
-  <canvas id="frame" width="504" height="896"></canvas>
+  <canvas id="frame" width="432" height="768"></canvas>
 
   <!-- シャッター -->
   <div id="shutter-inner">
@@ -32,14 +32,14 @@
 </section>
 
 <!-- 合成用Canvas(不可視) -->
-<canvas id="still" width="504" height="896"></canvas>
+<canvas id="still" width="432" height="768"></canvas>
 
 <!-- ダイアログ -->
 <div id="dialog-outer">
   <!-- 最終結果 -->
   <div id="dialog-result" class="dialog">
       <img id="dialog-result-close" src="icon/times-circle-regular.svg" width="48" height="48">
-      <p><canvas id="result" width="504" height="896"></canvas></p>
+      <p><canvas id="result" width="432" height="768"></canvas></p>
       <button id="dialog-result-dl" type="button">
         <img src="icon/download-solid.svg" width="48" height="48">
       </button>
