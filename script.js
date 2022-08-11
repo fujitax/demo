@@ -7,6 +7,7 @@ async function main() {
     });
     const video = document.getElementById("video");
     const offscreen = document.createElement("canvas");
+    video.playsinline = true;
     video.srcObject = stream;
     video.onloadedmetadata = () => {
       video.play();
