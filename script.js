@@ -5,7 +5,6 @@ async function main() {
         facingMode: "environment",
       },
     });
-    <video id="video" autoplay playsinline />
     const video = document.getElementById("video");
     const offscreen = document.createElement("canvas");
     video.srcObject = stream;
