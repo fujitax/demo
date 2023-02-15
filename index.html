@@ -2,14 +2,17 @@
   <html>
     <head>
       <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
-        <script>
-          window.OneSignal = window.OneSignal || [];
-            OneSignal.push(function() {
-              OneSignal.init({
-              appId: "de7a7b25-3366-4b1c-866e-d328566a5dec",
-              });
-            });
-        </script> 
+      <script>
+       window.OneSignal = window.OneSignal || [];
+       OneSignal.push(function() {
+        OneSignal.init({
+         appId: "de7a7b25-3366-4b1c-866e-d328566a5dec",
+         notifyButton:{
+           enable;true,
+         };
+        });
+       });
+      </script> 
     </head>
   <body>
     初めてのWebページです。
